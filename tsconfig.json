@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "es6",
+    "lib": [
+      "es2019",
+      "dom"
+    ]
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules",
+    "wwwroot"
+  ]
+}

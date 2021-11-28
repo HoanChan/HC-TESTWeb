@@ -1,5 +1,6 @@
 'use strict';
 export const HTMLEncode = (text) => $('<div/>').text(text).html();
+export const RegExpEncode = (text) => text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 export function CreateAccordion(html) {
     return `<div class="accordion" id="EditorList">${html}</div>`;
 }

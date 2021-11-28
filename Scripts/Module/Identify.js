@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import * as Data from '../Data/Data.js';
 import * as BS from '../Controler/BS.js';
+import { OOXml } from '../Data/OOXml.js';
 Array.prototype.Last = function () { return this.length > 0 ? this[this.length - 1] : null; };
 Array.prototype.First = function () { return this.length > 0 ? this[0] : null; };
 export function AddWarning(para, text) {
@@ -49,25 +50,18 @@ export function MakeCopy(paraRange, context, count) {
         let Ooxml = paraRange.getOoxml();
         yield context.sync();
         let newOoxmlValue = Ooxml.value;
+        let Xml = new OOXml(newOoxmlValue);
         for (let i = 0; i < count; i++) {
+            let newXml = new OOXml(newOoxmlValue);
             JSCode.NextValue();
-            let newRange = paraRange.insertOoxml(newOoxmlValue, Word.InsertLocation.after);
-            yield context.sync();
-            let ReplaceData = [];
             JSCode.ReplaceStrings.forEach((code, i) => {
-                let searchResult = newRange.search(code.replace(/\n/g, '^?'), { matchWildcards: false, matchWholeWord: false, ignoreSpace: true });
-                searchResult.load('items');
-                ReplaceData.push({ searchResults: searchResult, result: BS.HTMLEncode(JSCode.Result[i]) });
+                newXml.Replace(code, JSCode.Result[i]);
             });
-            yield context.sync();
-            ReplaceData.forEach(data => {
-                data.searchResults.items.forEach(range => {
-                    range.insertHtml(data.result, Word.InsertLocation.replace);
-                });
-            });
-            yield context.sync();
-            $('#listResult').prepend(BS.CreateAlert(`Đã thêm: ${JSCode.ResultStrings().join(', ')}`, 'warning'));
+            Xml.Join(newXml);
+            $('#listResult').append(BS.CreateAlert(`Đã thêm: ${JSCode.ResultStrings().join(', ')}`, 'warning'));
         }
+        paraRange.insertOoxml(Xml.XML(), Word.InsertLocation.replace);
+        yield context.sync();
     });
 }
 //# sourceMappingURL=Identify.js.map

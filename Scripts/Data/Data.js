@@ -1,3 +1,4 @@
+'use strict';
 export class JSCode {
     constructor(texts, IdetifyResultFn, evalResultFn, evalErrFn) {
         this.CodeRegex = /(?<=(\[\<))(?<value>[\s\S]{3,}?)(?=(\>\]))/gi;
@@ -20,8 +21,8 @@ export class JSCode {
             } while (m);
             return matches;
         };
-        this.GetMatches = (texts) => this.GetRegexResult(texts, this.CodeRegex, true, m => m.groups['value']);
-        this.GetVarList = (texts) => this.GetRegexResult(texts, this.VarRegex, false, m => m.groups['var']);
+        this.GetMatches = (texts) => this.GetRegexResult(texts, this.CodeRegex, true, m => m[1]);
+        this.GetVarList = (texts) => this.GetRegexResult(texts, this.VarRegex, false, m => m[0]);
         this.GetAll = (texts) => this.GetRegexResult(texts, this.CodeRegex, true, m => m[0]);
         this.GetRegexResult = (texts, regex, isJoin, callbackfn) => {
             let result = [];

@@ -20,7 +20,7 @@ export function initTab() {
     });
     $('#btnPrint').click(function () {
         Word.run((context) => __awaiter(this, void 0, void 0, function* () {
-            let count = $('#txtPrintCount').val();
+            let count = +$('#txtPrintCount').val();
             if (!count || count < 1) {
                 $('#listResult').html('<div class="alert alert-danger">Số lượng không đúng</div>');
                 return;

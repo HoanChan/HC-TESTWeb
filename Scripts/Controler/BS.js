@@ -1,5 +1,4 @@
 'use strict';
-import * as $ from '../jquery.js';
 export const HTMLEncode = (text) => $('<div/>').text(text).html();
 export const RegExpEncode = (text) => text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 export function CreateAccordion(html) {

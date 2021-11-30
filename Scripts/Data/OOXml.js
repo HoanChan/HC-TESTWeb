@@ -12,9 +12,7 @@ export class OOXml {
             let xmlOldText = numberOfLineBreaks == 0 ? BS.RegExpEncode(BS.HTMLEncode(oldText)) :
                 BS.RegExpEncode(BS.HTMLEncode(oldText)).replace(/\n(&nbsp;)*/gi, '[\\s\\S]+?');
             let xmlNewText = BS.HTMLEncode(newText);
-            console.log(this.Body()[0].innerHTML);
             this.Body()[0].innerHTML = this.Body()[0].innerHTML.replace(new RegExp(xmlOldText, 'gi'), xmlNewText);
-            console.log(xmlOldText, xmlNewText);
         };
         this.XML = () => this.XmlDoc.documentElement.outerHTML;
         this.Parser = new DOMParser();

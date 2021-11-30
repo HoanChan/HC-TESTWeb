@@ -1,4 +1,3 @@
-'use strict';
 export class JSCode {
     constructor(texts, IdetifyResultFn, evalResultFn, evalErrFn) {
         this.CodeRegex = /(?<=(\[\<))(?<value>[\s\S]{3,}?)(?=(\>\]))/gi;

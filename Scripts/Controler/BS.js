@@ -35,7 +35,7 @@ function ListItem(html) {
     return `<li class="list-group-item">${html}</li>`;
 }
 export function CreateList(text, isEncode = false) {
-    return List(text.map(t => ListItem(isEncode ? HTMLEncode(t) : t)).join(''));
+    return List(text.map(t => ListItem(isEncode ? HTMLEncode(t) : t).replace(/\n/g, '<br>')).join(''));
 }
 export function CreateAlert(html, style, isCode = false) {
     return isCode ? `<div class="alert alert-${style}"><pre><code>${html}</code></pre></div>` :

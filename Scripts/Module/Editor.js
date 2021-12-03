@@ -1,4 +1,41 @@
 'use strict';
+export const Functions = [{
+        Name: 'Hàm cơ bản',
+        Items: [{
+                Name: 'int(a,b)',
+                Text: 'Trả về giá trị là một số nguyên ngẫu nhiên trong đoạn [a..b]',
+                Value: '[<KQ=int(3,5)>]'
+            }, {
+                Name: 'real(a,b)',
+                Text: 'Trả về giá trị là một số thực ngẫu nhiên trong đoạn [a..b]',
+                Value: '[<KQ=real(3,5)>]'
+            }, {
+                Name: 'round(x,n)',
+                Text: 'Làm tròn số thực x, lấy n chữ số phần thập phân, VD: round(1.234567,3) = 1.235',
+                Value: '[<KQ=round(3,5)>]'
+            }]
+    }, {
+        Name: 'Hàm nâng cao',
+        Items: [{
+                Name: 'DK?GT1:GT2',
+                Text: 'Nếu DK đúng thì trả về GT1, DK sai thì trả về GT2',
+                Value: '[<KQ=a>b?a:b>]'
+            }, {
+                Name: '(()={...})()',
+                Text: 'Viết hàm tính toán phức tạp trả về một kết quả nào đó',
+                Value: `[<KQ=(()=>{
+    let delta = b * b - 4 * a * c;
+    if (delta < 0) return 'Vô nghiệm'
+    if (delta == 0) return 'x=' + round(-b/2/a,2)
+    return 'x1=' + round((-b+Math.sqrt(delta))/2/a,2)
+        + ', x2=' + round((-b-Math.sqrt(delta))/2/a,2)
+})()>]`
+            }]
+    }];
+export function CreateCode(text) {
+    let html = text.split(/\n/g).map(t => `<p style="margin:0;padding:0;">${$('<div/>').text(t).html()}</p>`).join('');
+    return html.replace(/\s\s/g, '&nbsp;&nbsp;');
+}
 export function CreateHTML(html) {
     return (html + '<p></p>')
         .replace(/(?<=<\/[^>]+>)\s+(?=<[^>]+>)/gi, '')
@@ -84,6 +121,18 @@ export const Data = [{
                 <p>=&gt; Ta tính theo số mol [&lt;puh=puh&gt;].</p>
                 <p>=&gt; n[&lt;pud=pud&gt;] phản ứng = ([&lt;npud=puh==’P’?dvp:dvo2&gt;] x [&lt;j=puh==’P’?4:5&gt;]) : [&lt;k=puh==’P’?5:4&gt;] = [&lt;l=round(npud*j/k,4)&gt;] (mol)</p>
                 <p>=&gt; Số mol [&lt;pud=pud&gt;] dư = [&lt;m=puh==’P’?np:no2&gt;]  – [&lt;npud=npud&gt;] = [&lt;n=round(m-npud,4)&gt;] (mol)</p>`
+            }, {
+                Name: 'Tính trọng lượng',
+                Value: `<p>Cần bao nhiêu gam đồng để khử hoàn toàn lượn ion bạc có trong [&lt;a=5.0*int(10,20)&gt;]ml dung dịch AgNO<sub>3</sub> [&lt;b=0.5*int(2,7)&gt;]M?</p>
+                <p><strong>Lời giải:</strong></p>
+                <p>V<sub>AgNO3</sub> = [&lt;a=a&gt;] ml = [&lt;v=a/1000&gt;] lit</p>
+                <p>=&gt; n<sub>AgNO3</sub> = [&lt;b=b&gt;] * [&lt;v=v&gt;] = [&lt;n=round(b*v,4)&gt;] mol</p>
+                <p>Phương trình hóa học của phản ứng:</p>
+                <p>Cu + 2AgNO<sub>3</sub> → Cu(NO<sub>3</sub>)<sub>2</sub> + 2Ag</p>
+                <p>Theo Phương trình:</p>
+                <p>n<sub>Cu</sub> = ½ * n<sub>AgNO3</sub> = [&lt;n=n&gt;] / 2 = [&lt;nCu=round(n/2,4)&gt;] mol</p>
+                <p>m<sub>Cu</sub> tham gia phản ứng: [&lt;nCu=nCu&gt;] × 64 = [&lt;KQ=nCu*64&gt;] g</p>
+                <p> </p>`
             }]
     }];
 //# sourceMappingURL=Editor.js.map

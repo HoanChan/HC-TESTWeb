@@ -12,13 +12,33 @@ import * as Editor from '../Module/Editor.js';
 import * as BS from '../Controler/BS.js';
 export function initTab() {
     let Accordions = '';
-    Editor.Data.forEach((group, groupindex) => {
+    Editor.Functions.forEach((func, funcIndex) => {
         let body = '';
-        group.Items.forEach((value, valueIndex) => {
-            body += BS.CreateListGroupItem(value.Name, `[${groupindex},${valueIndex}]`);
+        func.Items.forEach((value, valueIndex) => {
+            body += BS.CreateListGroupItem(`<b>${value.Name}</b><br>${value.Text}`, `[${funcIndex},${valueIndex}]`);
         });
         body = BS.CreateListGroup(body);
-        Accordions += BS.CreateAccordionItem(group.Name, '-e-' + groupindex, body);
+        Accordions += BS.CreateAccordionItem(func.Name, '-f-' + funcIndex, body);
+    });
+    $('#EditorFunctions').addClass('accordion').html(Accordions);
+    $('#EditorFunctions button').click(function () {
+        let [groupIndex, valueIndex] = $(this).data('hc-index');
+        let textData = Editor.CreateCode(Editor.Functions[groupIndex].Items[valueIndex].Value);
+        Word.run((context) => __awaiter(this, void 0, void 0, function* () {
+            let range = context.document.getSelection().getRange(Word.RangeLocation.whole);
+            yield context.sync;
+            range.insertHtml(textData, Word.InsertLocation.replace);
+            yield context.sync;
+        })).catch(errorHandler);
+    });
+    Accordions = '';
+    Editor.Data.forEach((group, groupIndex) => {
+        let body = '';
+        group.Items.forEach((value, valueIndex) => {
+            body += BS.CreateListGroupItem(value.Name, `[${groupIndex},${valueIndex}]`);
+        });
+        body = BS.CreateListGroup(body);
+        Accordions += BS.CreateAccordionItem(group.Name, '-e-' + groupIndex, body);
     });
     $('#EditorList').addClass('accordion').html(Accordions);
     $('#EditorList button').click(function () {

@@ -9,14 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import * as Identify from '../Module/Identify.js';
+import * as BS from '../Controler/BS.js';
 export function initTab() {
     $('#btnIdentify').click(function () {
         Word.run((context) => __awaiter(this, void 0, void 0, function* () {
             let paragraphs = context.document.getSelection().paragraphs;
             $('#listIdentify').html('');
+            $('#listResult').html('');
             yield Identify.IdentifyTest(paragraphs);
             yield context.sync;
-        })).catch(errorHandler);
+        })).catch(BS.errorHandler);
     });
     $('#btnPrint').click(function () {
         Word.run((context) => __awaiter(this, void 0, void 0, function* () {
@@ -31,15 +33,7 @@ export function initTab() {
             let range = context.document.getSelection();
             yield Identify.MakeCopy(range, context, count);
             yield context.sync;
-        })).catch(errorHandler);
+        })).catch(BS.errorHandler);
     });
-    function errorHandler(error) {
-        console.log('Error: ' + error);
-        if (error instanceof OfficeExtension.Error) {
-            console.log('Debug info: ' + JSON.stringify(error.debugInfo));
-        }
-    }
-    function showNotification(header, content) {
-    }
 }
-//# sourceMappingURL=Identify-tab.js.map
+//# sourceMappingURL=run-tab.js.map

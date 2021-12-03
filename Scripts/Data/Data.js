@@ -9,6 +9,8 @@ export class JSCode {
             _global.int = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
             _global.real = (min, max) => Math.random() * (max - min) + min;
             _global.round = (number, places) => (+(Math.round((number + "e+" + places)) + "e-" + places));
+            _global.rad = (degrees) => degrees * (Math.PI / 180);
+            _global.deg = (rad) => rad / (Math.PI / 180);
         };
         this.regexExecAll = (str, regex) => {
             const matches = [];

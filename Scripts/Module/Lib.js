@@ -4,25 +4,47 @@ export const Functions = [{
         Items: [{
                 Name: 'int(a,b)',
                 Text: 'Trả về giá trị là một số nguyên ngẫu nhiên trong đoạn [a..b]',
+                Eg: 'int(3,5): số nguyên ngẫu nhiên trong đoạn [3..5]',
                 Value: '[<KQ=int(3,5)>]'
             }, {
                 Name: 'real(a,b)',
                 Text: 'Trả về giá trị là một số thực ngẫu nhiên trong đoạn [a..b]',
+                Eg: 'real(3,5): số thực ngẫu nhiên trong đoạn [3..5]',
                 Value: '[<KQ=real(3,5)>]'
             }, {
                 Name: 'round(x,n)',
-                Text: 'Làm tròn số thực x, lấy n chữ số phần thập phân, VD: round(1.234567,3) = 1.235',
+                Text: 'Làm tròn số thực x, lấy n chữ số phần thập phân',
+                Eg: 'round(1.234567,3) = 1.235',
                 Value: '[<KQ=round(3,5)>]'
+            }, {
+                Name: 'rad(x)',
+                Text: 'Chuyển số đo góc x từ độ (degrees) sang radian',
+                Eg: 'rad(30) = 0.523598776',
+                Value: '[<KQ=rad(30)>]'
+            }, {
+                Name: 'deg(x)',
+                Text: 'Chuyển số đo góc x từ radian sang độ (degrees)',
+                Eg: 'deg(0.523598776) = 30',
+                Value: '[<KQ=deg(30)>]'
             }]
     }, {
         Name: 'Hàm nâng cao',
         Items: [{
                 Name: 'DK?GT1:GT2',
                 Text: 'Nếu DK đúng thì trả về GT1, DK sai thì trả về GT2',
+                Eg: 'a>b?a:b - Nếu a>b thì kết quả là a, không thì kết quả là b',
                 Value: '[<KQ=a>b?a:b>]'
             }, {
                 Name: '(()={...})()',
                 Text: 'Viết hàm tính toán phức tạp trả về một kết quả nào đó',
+                Eg: `(()=>{
+    let delta = b * b - 4 * a * c;
+    if (delta < 0) return 'Vô nghiệm'
+    if (delta == 0) return 'x=' + round(-b/2/a,2)
+    return 'x1=' + round((-b+Math.sqrt(delta))/2/a,2)
+        + ', x2=' + round((-b-Math.sqrt(delta))/2/a,2)
+})()
+Đây là hàm giải phương trình ax^2+bx+c=0`,
                 Value: `[<KQ=(()=>{
     let delta = b * b - 4 * a * c;
     if (delta < 0) return 'Vô nghiệm'
@@ -34,6 +56,10 @@ export const Functions = [{
     }];
 export function CreateCode(text) {
     let html = text.split(/\n/g).map(t => `<p style="margin:0;padding:0;">${$('<div/>').text(t).html()}</p>`).join('');
+    return html.replace(/\s\s/g, '&nbsp;&nbsp;');
+}
+export function CreateInlineHTML(text) {
+    let html = text.split(/\n/g).join('<br>');
     return html.replace(/\s\s/g, '&nbsp;&nbsp;');
 }
 export function CreateHTML(html) {
@@ -135,4 +161,4 @@ export const Data = [{
                 <p> </p>`
             }]
     }];
-//# sourceMappingURL=Editor.js.map
+//# sourceMappingURL=Lib.js.map

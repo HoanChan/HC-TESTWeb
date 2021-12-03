@@ -41,4 +41,12 @@ export function CreateAlert(html, style, isCode = false) {
     return isCode ? `<div class="alert alert-${style}"><pre><code>${html}</code></pre></div>` :
         `<div class="alert alert-${style}">${html}</div>`;
 }
+export function errorHandler(error) {
+    console.log('Error: ' + error);
+    if (error instanceof OfficeExtension.Error) {
+        console.log('Debug info: ' + JSON.stringify(error.debugInfo));
+    }
+}
+export function showNotification(header, content) {
+}
 //# sourceMappingURL=BS.js.map
